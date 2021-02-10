@@ -1,16 +1,16 @@
 import 'dart:convert';
 
-Song songFromJson(String str) {
+SongModel songFromJson(String str) {
   final jsonData = json.decode(str);
-  return Song.fromMap(jsonData);
+  return SongModel.fromMap(jsonData);
 }
 
-String songToJson(Song data) {
+String songToJson(SongModel data) {
   final dyn = data.toMap();
   return json.encode(dyn);
 }
 
-class Song {
+class SongModel {
   int id;
   String title;
   String displayName;
@@ -22,7 +22,7 @@ class Song {
   String composer;
   bool fav;
 
-  Song({
+  SongModel({
     this.id,
     this.title,
     this.displayName,
@@ -35,7 +35,7 @@ class Song {
     this.fav,
   });
 
-  factory Song.fromMap(Map<String, dynamic> json) => new Song(
+  factory SongModel.fromMap(Map<String, dynamic> json) => new SongModel(
     id: json["id"],
     title: json["title"],
     displayName: json["display_name"],

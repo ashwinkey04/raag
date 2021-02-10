@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:raag/provider/audio_helper.dart';
+import 'package:raag/provider/player_provider.dart';
 import 'package:raag/widgets/seekbar.dart';
 
 import '../main.dart';
@@ -12,6 +14,8 @@ class PlayBackControls extends StatefulWidget {
 class _PlayBackControlsState extends State<PlayBackControls> {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<PlayerProvider>(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -58,7 +62,7 @@ class _PlayBackControlsState extends State<PlayBackControls> {
                             ),
                             elevation: 0,
                             onPressed: () {
-                              audioManagerInstance.previous();
+                              //TODO: Implement queue
                             }),
                       ),
                     ),
@@ -86,10 +90,7 @@ class _PlayBackControlsState extends State<PlayBackControls> {
                             ),
                             elevation: 0,
                             onPressed: () {
-                              audioManagerInstance.isPlaying
-                                  ? playFABController.reverse()
-                                  : playFABController.forward();
-                              audioManagerInstance.playOrPause();
+                              throw UnimplementedError();
                             }),
                       ),
                     ),
@@ -116,7 +117,7 @@ class _PlayBackControlsState extends State<PlayBackControls> {
                             ),
                             elevation: 0,
                             onPressed: () {
-                              audioManagerInstance.next();
+                              //TODO: Implement queue
                             }),
                       ),
                     ),
@@ -137,7 +138,7 @@ class _PlayBackControlsState extends State<PlayBackControls> {
                           child: RawMaterialButton(
                         shape: CircleBorder(),
                         onPressed: () {
-                          audioManagerInstance.stop();
+                          musicPlayer.stop();
                           playFABController.reverse();
                         },
                         child: Icon(

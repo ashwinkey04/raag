@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:raag/provider/audio_helper.dart';
+import 'package:raag/provider/player_provider.dart';
 
 import '../main.dart';
 
@@ -11,10 +13,12 @@ class SeekBar extends StatefulWidget {
 class _SeekBarState extends State<SeekBar> {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<PlayerProvider>(context);
+
     return Row(
       children: <Widget>[
         Text(
-          formatDuration(audioManagerInstance.position),
+          provider.positionText,
           style: Theme.of(context).textTheme.subtitle2,
         ),
         Expanded(
@@ -43,20 +47,15 @@ class _SeekBarState extends State<SeekBar> {
                     });
                   },
                   onChangeEnd: (value) {
-                    if (audioManagerInstance.duration != null) {
-                      Duration msec = Duration(
-                          milliseconds:
-                              (audioManagerInstance.duration.inMilliseconds *
-                                      value)
-                                  .round());
-                      audioManagerInstance.seekTo(msec);
+                    if (provider.duration != null) {
+                      musicPlayer.seek(provider.duration.inSeconds.toDouble());
                     }
                   },
                 )),
           ),
         ),
         Text(
-          formatDuration(audioManagerInstance.duration),
+          formatDuration(provider.duration),
           style: Theme.of(context).textTheme.subtitle2,
         ),
       ],

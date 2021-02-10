@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
         await DBProvider.db.deleteAll();
         List<SongInfo> songs = await FlutterAudioQuery().getSongs();
         for (var it = 0; it < songs.length; it++) {
-          DBProvider.db.insertSong(new Song(
+          DBProvider.db.insertSong(new SongModel(
               id: int.parse(songs[it].id),
               title: songs[it].title,
               displayName: songs[it].displayName,

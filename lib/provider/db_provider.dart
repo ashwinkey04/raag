@@ -38,12 +38,12 @@ class DBProvider {
     });
   }
 
-  insertSongList(List<Song> songs) async {
+  insertSongList(List<SongModel> songs) async {
     for (var iterator = 0; iterator < songs.length; iterator++)
       insertSong(songs[iterator]);
   }
 
-  insertSong(Song newSong) async {
+  insertSong(SongModel newSong) async {
     final db = await database;
     var raw = await db.rawInsert(
         "INSERT Into Song "
@@ -66,7 +66,7 @@ class DBProvider {
   getSong(int id) async {
     final db = await database;
     var res = await db.query("Song", where: "id = ?", whereArgs: [id]);
-    return res.isNotEmpty ? Song.fromMap(res.first) : null;
+    return res.isNotEmpty ? SongModel.fromMap(res.first) : null;
   }
 
   Future<int> getCount() async{
@@ -74,11 +74,11 @@ class DBProvider {
     return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM Song'));
   }
 
-  Future<List<Song>> getAllSongs() async {
+  Future<List<SongModel>> getAllSongs() async {
     final db = await database;
     var res = await db.query("Song");
-    List<Song> list =
-        res.isNotEmpty ? res.map((c) => Song.fromMap(c)).toList() : [];
+    List<SongModel> list =
+        res.isNotEmpty ? res.map((c) => SongModel.fromMap(c)).toList() : [];
     return list;
   }
 

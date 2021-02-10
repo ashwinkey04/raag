@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 import 'package:raag/model/SharedPreferences.dart';
 import 'package:raag/model/music_model.dart';
 import 'package:raag/provider/db_provider.dart';
-import 'package:raag/provider/settings_provider.dart';
 
 class RefreshButton extends StatefulWidget {
   @override
@@ -16,7 +14,6 @@ class _RefreshButtonState extends State<RefreshButton> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<SettingsProvider>(context);
     final screenWidth = MediaQuery.of(context).size.width;
     Preferences _preferencesProvider = new Preferences();
 
@@ -42,7 +39,7 @@ class _RefreshButtonState extends State<RefreshButton> {
           await DBProvider.db.deleteAll();
           List<SongInfo> songs = await FlutterAudioQuery().getSongs();
           for (var it = 0; it < songs.length; it++) {
-            DBProvider.db.insertSong(new Song(
+            DBProvider.db.insertSong(new SongModel(
                 id: int.parse(songs[it].id),
                 title: songs[it].title,
                 displayName: songs[it].displayName,
