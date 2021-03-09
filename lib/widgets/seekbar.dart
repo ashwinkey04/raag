@@ -26,7 +26,6 @@ class _SeekBarState extends State<SeekBar> {
                 data: SliderTheme.of(context).copyWith(
                   trackHeight: 2,
                   thumbColor: Theme.of(context).accentColor,
-                  overlayColor: Theme.of(context).dividerColor,
                   thumbShape: RoundSliderThumbShape(
                     disabledThumbRadius: 3,
                     enabledThumbRadius: 5,
